@@ -1,9 +1,7 @@
 ### Анна Кузьмина
 
 ```
-почта:test@gmail.com
 github: https://github.com/vverq
-telegram: @test
 ```
 
 ---
