@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>CV</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script>
+       $(".nav-link").on("click", function(){
+       $(".nav-link").find(".active").removeClass("active");
+       $(this).addClass("active");
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar d-flex justify-content-center py-3">
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a href="#about" class="nav-link active" aria-current="page">About me</a></li>
+          <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
+          <li class="nav-item"><a href="#education" class="nav-link">Education</a></li>
+          <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+          <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+          <li class="nav-item"><a href="#code" class="nav-link">Code example</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <article>
+        <h1>Kuzmina Anna</h1>
+        <div class="contact-info">
+          My email: test@test.ru
+          <br>
+          My phome number: +7(777)777-77-77
+        </div>
+        <img class="rounded-circle avatar" src="https://a.d-cd.net/mqyaIN4EjjOJgEDtrQJmEPc5nI4-960.jpg" alt="Candidate photo">   
+        <div id="about" class="rounded about text-primary">
+          Hi! I'm Anna, I'm working as a QA Engineer. Despite that I'm intrested not only into QA, but some developers fields. I like learning something new, so now I'm here :))
+        </div>
+      </article>
+      <article id="experience" class="cv-part"> 
+        <h2>Work experience</h2>
+        <h5>Kontur <span class="badge text-bg-primary rounded-pill">2021-...</span></h5>
+        <p>Middle QA Engineer. I do manual testing, write UI Selemium C# tests, write test infrastructure code, try building processes.</p>
+        <hr>
+      </article>
+      <article id="education" class="cv-part"> 
+        <h2>Education</h2>
+        <h5>Ural Federal University <span class="badge text-bg-primary rounded-pill">2018-2022</span></h5>
+        <p>Bachalor's degree in Computer Science. Department of Algebra and Information Technology, Fundamental Informatics and Information Technology</p>
+        <h5>Tinkoff Fintech <span class="badge text-bg-primary rounded-pill">2018-2022</span></h5>
+        <p>QA Engineering course, learning QA basics, automation basics</p>
+        <h5>Tinkoff Backend Academy <span class="badge text-bg-primary rounded-pill">2022-2024</span></h5>
+        <p>Backend Python SRE course</p>
+        <hr>
+      </article>
+      <article id="skills" class="cv-part">
+        <h2>Skills</h2>
+        <ul>
+          <li>Python, Java, C#</li>
+          <li>Object Oriented Programming, Agile</li>
+          <li>Testing: Selenium</li>
+          <li>Darabases: MSSQL, Postgres, Redis</li>
+          <li>Fluent with Git, Linux</li>
+          <li>English: B2</li>
+        </ul>
+        <hr>
+      </article>
+      <article id="projects" class="cv-part">
+        <h2>Projects</h2>
+        <h5>Magic Graphs <span class="badge text-bg-primary rounded-pill">Java</span></h5>
+        <p>Graph algorithm library written in Java. Within the framework of this project, classical graphical algorithms were implemented (various searches, Dijkstra and Ford-Bellman algorithms, minimum spanning tree algorithms, etc.). <a href="https://github.com/vverq/magicGraphs">Link</a></p>
+        <h5>Airports <span class="badge text-bg-primary rounded-pill">Java, Spring Boot</span></h5>
+        <p>Spring Boot web application for searching airports by criteria (name, location, IATA, etc.). <a href="https://github.com/vverq/testSpring">Link</a></p>
+        <h5>Fillomino <span class="badge text-bg-primary rounded-pill">Python</span></h5>
+        <p>Utility for solving the Fillomino puzzle with a graphical interface. Written in Python using PyQt. <a href="https://github.com/vverq/fillomino">Link</a></p>
+        <hr>
+      </article>
+      <article id="code" class="cv-part">
+        <h2>Code example</h2>
+        <pre>
+          <code>
+          class Task:
+              def __init__(self, length, data):
+                  self.id = str(uuid.uuid4())
+                  self.length = length
+                  self.data = data
+                  self.getting_time = None
+
+
+          class TaskQueue(Queue):
+              def __init__(self, timeout):
+                  super().__init__()
+                  self.timedelta = timedelta(seconds=timeout)
+                  self.tasks = dict()
+
+              def put(self, task, **kwargs):
+                  self.queue.append(task)
+                  self.tasks[task.id] = task
+
+              def get(self, **kwargs):
+                  for task in self.queue:
+                      if (
+                          task.getting_time is None
+                          or datetime.now() - task.getting_time >= self.timedelta
+                      ):
+                          task.getting_time = datetime.now()
+                          return task
+                  return None
+
+
+          class TaskQueueEncoder(JSONEncoder):
+              def default(self, o):
+                  return o.__dict__
+
+
+          class TaskQueueServer:
+              def __init__(self, ip, port, path, timeout):
+                  self.sock = socket.socket()
+                  self.ip = ip
+                  self.port = port
+                  self.path = path
+                  self.timeout = timeout
+                  self.queues = dict()
+
+              def add_task_in_queue(self, queue_name, task, connection):
+                  if self.is_queue_exists(queue_name):
+                      self.queues[queue_name].put(task)
+                  else:
+                      self.queues[queue_name] = TaskQueue(self.timeout)
+                      self.queues[queue_name].put(task)
+                  self.queues[queue_name].tasks[task.id] = task
+                  connection.send(str.encode(task.id))
+
+              def get_task_from_queue(self, queue_name, connection):
+                  if self.is_queue_exists(queue_name):
+                      task = self.queues[queue_name].get()
+                      if task:
+                          response = f"{task.id} {task.length} {task.data}"
+                          connection.send(str.encode(response))
+                      else:
+                          connection.send(str.encode("NONE"))
+                  else:
+                      connection.send(str.encode("ERROR"))
+
+              def ack_task(self, queue_name, id, connection):
+                  if self.is_queue_exists(queue_name):
+                      queue = self.queues[queue_name]
+                      if id in queue.tasks.keys():
+                          task = queue.tasks[id]
+                          if task.getting_time is not None:
+                              queue.tasks.pop(id)
+                              queue.queue.remove(task)
+                              connection.send(str.encode("YES"))
+                          else:
+                              connection.send(str.encode("NO"))
+                      else:
+                          connection.send(str.encode("NO"))
+                  else:
+                      connection.send(str.encode("ERROR"))
+
+              def check_is_task_in_queue(self, queue_name, id, connection):
+                  if self.is_queue_exists(queue_name):
+                      if id in self.queues[queue_name].tasks.keys():
+                          connection.send(str.encode("YES"))
+                      else:
+                          connection.send(str.encode("NO"))
+                  else:
+                      connection.send(str.encode("ERROR"))
+
+              def save(self, queue_name, path, connection):
+                  if self.is_queue_exists(queue_name):
+                      path = pathlib.Path(path) / queue_name
+                      with path.open("w", encoding="utf-8") as f:
+                          f.write(json.dumps(self.queues[queue_name].tasks, cls=TaskQueueEncoder))
+                      with pathlib.Path("meta_info").open("w", encoding="utf-8") as f:
+                          f.write(f"{queue_name} {path}")
+                      connection.send(str.encode("OK"))
+                  else:
+                      connection.send(str.encode("ERROR"))
+
+              def is_queue_exists(self, queue_name):
+                  return queue_name in self.queues.keys()
+
+              def run(self):
+                  path_meta = pathlib.Path("meta_info")
+                  with path_meta.open("r", encoding="utf-8") as meta_file:
+                      for line in meta_file:
+                          queue_name, path = line.split(" ")
+                          filepath = pathlib.Path(path)
+                          with filepath.open("r", encoding="utf-8") as file:
+                              self.queues[queue_name] = TaskQueue(self.timeout)
+                              self.queues[queue_name].tasks = json.load(file)
+                  self.sock.bind((self.ip, self.port))
+                  self.sock.listen(1)
+                  while True:
+                      connection, address = self.sock.accept()
+                      data = connection.recv(1048576)
+                      if not data:
+                          continue
+                      command = data.decode("utf-8").split(" ")
+                      type_command = command[0]
+                      queue_name = command[1]
+                      # todo тут пригодился бы паттерн-матчинг,
+                      #  но я все еще сижу на питоне 3.9...
+                      if type_command == "ADD":
+                          if len(command) &lt; 4:
+                              connection.send(str.encode("ERROR"))
+                          self.add_task_in_queue(
+                              queue_name, Task(command[2], command[3]), connection
+                          )
+                      elif type_command == "GET":
+                          self.get_task_from_queue(queue_name, connection)
+                      elif type_command == "ACK":
+                          if len(command) &lt; 3:
+                              connection.send(str.encode("ERROR"))
+                          self.ack_task(queue_name, command[2], connection)
+                      elif type_command == "IN":
+                          if len(command) &lt; 3:
+                              connection.send(str.encode("ERROR"))
+                          self.check_is_task_in_queue(queue_name, command[2], connection)
+                      elif type_command == "SAVE":
+                          if len(command) &lt; 3:
+                              connection.send(str.encode("ERROR"))
+                          self.save(queue_name, command[2], connection)
+                      else:
+                          connection.send(str.encode("ERROR"))
+                      connection.close()
+        </code>  
+        </pre>  
+      </article>
+    </main>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <a href="https://rs.school/js/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <img class="icon" src="https://rs.school/images/rs_school_js.svg" alt="dots icon">
+      </a>
+
+      <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item"><a href="https://github.com/vverq/" class="nav-link px-2 text-muted">My Github profile</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">2023</a></li>
+      </ul>
+    </footer>
+  </body>
+</html>
